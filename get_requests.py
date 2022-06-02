@@ -9,11 +9,9 @@ import requests
 @fn_timer
 def requests_using_pool(urls):
     pool = Pool(20)
-    resps = pool.map(download_image, urls)
+    pool.map(download_image, urls)
     pool.close()
     pool.join()
-    print(resps)
-    return resps
 
 @fn_timer
 def download_using_concurrent(urls):
@@ -30,8 +28,10 @@ def main():
         name2 = 'images2/'+ url_parts[-2] + url_parts[-1]
         filenames.append(name)
         filenames2.append(name2)
+    print("Concurrent algorithm")
     download_using_concurrent(urls)
-    #requests_using_pool(urls)
+    print("Multiprocess algorithm")
+    requests_using_pool(urls)
 
 def download_image(url):
     try:
@@ -39,7 +39,6 @@ def download_image(url):
         print(response)
     except requests.exceptions.RequestException as e:  # This is the correct syntax
         print(e)
-        #raise SystemExit(e)
 
 if __name__ == '__main__':
     main()
