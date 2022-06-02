@@ -1,0 +1,8 @@
+# Folders
+env/
+
+# Files
+*.csv
+*.jpg
+*.png
+
